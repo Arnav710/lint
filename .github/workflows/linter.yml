@@ -1,0 +1,45 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - '*'  # Trigger on push to all branches
+  pull_request:
+    branches:
+      - '*'  # Trigger on pull requests for all branches
+
+permissions:
+  checks: write
+  contents: write
+
+jobs:
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      # Install and enable linters for HTML, CSS, and JavaScript
+      - name: Install HTMLHint
+        run: npm install htmlhint --save-dev
+
+      - name: Install Stylelint
+        run: npm install stylelint --save-dev
+
+      - name: Install ESLint
+        run: npm install eslint --save-dev
+
+      # Run linting for HTML, CSS, and JavaScript
+      - name: Run HTML linting
+        run: npx htmlhint ./*.html
+
+      - name: Run CSS linting
+        run: npx stylelint "**/*.{css,scss}"
+
+      - name: Run JavaScript linting
+        run: npx eslint . --ext .js,.jsx
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
