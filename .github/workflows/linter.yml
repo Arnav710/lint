@@ -33,13 +33,10 @@ jobs:
 
       # Run linting for HTML, CSS, and JavaScript
       - name: Run HTML linting
-        run: npx htmlhint ./*.html || true
-
-      - name: Run CSS linting
-        run: npx stylelint "**/*.{css,scss}" || true
+        run: npx htmlhint ./*.html
 
       - name: Run JavaScript linting
-        run: npx eslint . --ext .js,.jsx || true
+        run: npx eslint . --ext .js,.jsx
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
